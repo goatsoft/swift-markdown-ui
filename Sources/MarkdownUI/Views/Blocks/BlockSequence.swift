@@ -9,6 +9,8 @@ where
   @Environment(\.multilineTextAlignment) private var textAlignment
   @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
 
+  @Environment(\.synchronousBlockSpacing) private var synchronousBlockSpacing
+
   @State private var blockMargins: [Int: BlockMargin] = [:]
 
   private let data: [Indexed<Data.Element>]
@@ -23,6 +25,16 @@ where
   }
 
   var body: some View {
+    if #available(macOS 13, iOS 16, tvOS 16, watchOS 9, *), let spacing = synchronousBlockSpacing {
+      SynchronousBlockSequence(
+        data: self.data, alignment: self.textAlignment.alignment.horizontal,
+        tight: self.tightSpacingEnabled, spacing: spacing, content: self.content)
+    } else {
+      self.preferenceBasedBody
+    }
+  }
+
+  private var preferenceBasedBody: some View {
     VStack(alignment: self.textAlignment.alignment.horizontal, spacing: 0) {
       ForEach(self.data, id: \.self) { element in
         self.content(element.index, element.value)
