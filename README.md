@@ -1,4 +1,4 @@
-> GOAT maintenance fork of [gonzalezreal/swift-markdown-ui](https://github.com/gonzalezreal/swift-markdown-ui), based on 2.4.1.
+> GOAT maintenance fork of [gonzalezreal/swift-markdown-ui](https://github.com/gonzalezreal/swift-markdown-ui), based on 2.4.1 with the compatible upstream maintenance changes through `8371aeb`.
 > The upstream renderer remains the default. This fork adds an opt-in `markdownBlockSpacing(_:)`
 > policy and synchronous SwiftUI block layout for themes that provide explicit margins matching
 > their styles. Nested containers inherit all descendant margins, tight lists collapse item gaps,
@@ -7,6 +7,16 @@
 > See `MarkdownBlockSpacing` for the contract. Custom styles that add content or change inherited
 > font sizes should retain the default renderer unless their explicit policy matches those styles.
 > Upstream licence and notices remain unchanged.
+
+> [!NOTE]
+> MarkdownUI is in maintenance mode.
+> 
+> New development is happening in [Textual](https://github.com/gonzalezreal/textual),
+> a SwiftUI-native text rendering engine that evolved from the ideas and lessons
+> learned in MarkdownUI.
+>
+> For more context, see the announcement here:
+> https://github.com/gonzalezreal/swift-markdown-ui/discussions/437
 
 # MarkdownUI
 [![CI](https://github.com/gonzalezreal/MarkdownUI/workflows/CI/badge.svg)](https://github.com/gonzalezreal/MarkdownUI/actions?query=workflow%3ACI)
