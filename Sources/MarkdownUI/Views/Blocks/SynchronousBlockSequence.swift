@@ -26,12 +26,12 @@ struct SynchronousBlockSequence<Element: Hashable, Content: View>: View {
 }
 
 @available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
-private struct SynchronousBlockMarginKey: LayoutValueKey {
+struct SynchronousBlockMarginKey: LayoutValueKey {
   static let defaultValue = BlockMargin.unspecified
 }
 
 @available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
-private struct BlockSequenceLayout: Layout {
+struct BlockSequenceLayout: Layout {
   let alignment: HorizontalAlignment
   let tight: Bool
 
@@ -51,12 +51,13 @@ private struct BlockSequenceLayout: Layout {
       size.width = max(size.width, measured.width)
       size.height += gap(index, subviews) + measured.height
     }
-    return CGSize(width: proposal.width ?? size.width, height: size.height)
+    return size
   }
 
   func placeSubviews(
     in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()
   ) {
+    subviews.last?.place(at: bounds.origin, anchor: .topLeading, proposal: .zero)
     var y = bounds.minY
     for index in 0..<max(0, subviews.count - 1) {
       let view = subviews[index]
