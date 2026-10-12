@@ -9,9 +9,12 @@
       // given
       var fontProperties = FontProperties()
 
+      // The library targets macOS 12 / iOS 15, where system fonts default to regular.
+      // Newer test runners select an overload whose omitted weight means inherited weight.
+      // Specify the expected weight so both sides compare the same font contract.
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default),
+        Font.system(size: FontProperties.defaultSize, weight: .regular, design: .default),
         Font.withProperties(fontProperties)
       )
 
@@ -29,7 +32,8 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).monospaced(),
+        Font.system(size: FontProperties.defaultSize, weight: .regular, design: .default)
+          .monospaced(),
         Font.withProperties(fontProperties)
       )
 
@@ -38,7 +42,8 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).lowercaseSmallCaps(),
+        Font.system(size: FontProperties.defaultSize, weight: .regular, design: .default)
+          .lowercaseSmallCaps(),
         Font.withProperties(fontProperties)
       )
 
@@ -47,7 +52,8 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).monospacedDigit(),
+        Font.system(size: FontProperties.defaultSize, weight: .regular, design: .default)
+          .monospacedDigit(),
         Font.withProperties(fontProperties)
       )
 
@@ -56,7 +62,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).italic(),
+        Font.system(size: FontProperties.defaultSize, weight: .regular, design: .default).italic(),
         Font.withProperties(fontProperties)
       )
 
@@ -65,7 +71,8 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).weight(.heavy),
+        Font.system(size: FontProperties.defaultSize, weight: .regular, design: .default).weight(
+          .heavy),
         Font.withProperties(fontProperties)
       )
 
@@ -74,7 +81,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: 42, design: .default),
+        Font.system(size: 42, weight: .regular, design: .default),
         Font.withProperties(fontProperties)
       )
 
@@ -83,7 +90,8 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: round(FontProperties.defaultSize * 1.5), design: .default),
+        Font.system(
+          size: round(FontProperties.defaultSize * 1.5), weight: .regular, design: .default),
         Font.withProperties(fontProperties)
       )
     }
